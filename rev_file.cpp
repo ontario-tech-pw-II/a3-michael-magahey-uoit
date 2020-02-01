@@ -30,8 +30,11 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
+	cout << "Reading Files..." << endl;
 	freadnames(fin,list);
+	cout << "Reversing Strings..." << endl;
 	fwritenames_reverse(fout,list);
+	cout << "Writing Strings..." << endl;
 	freenames(list);
 	
 	fin.close();
@@ -42,33 +45,42 @@ int main(int argc, char *argv[])
 
 void freadnames(ifstream &f,char *list [])
 {
-	char x[200];
-
 	int i = 0;
-
 	// write a while loop to reads string form the file and put it in x till the end file
 		// inside the loop allocate the dynamic array for list[i]
 		// copy string in x to list[i] array
 		// increment i 
-
+	string data;
+	while (getline(f, data))
+	{
+		char* word = new char[200];
+		cout << "Read Word: " << data << endl;
+		strcpy(word, data.c_str());
+		list[i] = word;
+		i++;
+		cout << "Current Words: " << i << endl;
+	}
 	list[i] = nullptr;  // We put the null to the last pointer to mark that the last element in list
 }
 void fwritenames_reverse(ofstream &f,char *list [])
 {
 	int i;
-	for(i = 0; list[i] != nullptr ; ++i)
-		;
-
-	for(int j = i-1; j >= 0 ; --j)
+	for(i = 0; list[i] != nullptr; ++i)
 	{
-		// your code is here
+
 	}
+	for(int j = i-1; j >= 0; j--)
+	{
+		f << list[j] << endl;
+		cout << list[j] << " @ j: " << j << endl;
+	}
+	f.close();
 }
 void freenames(char *list [])
 {
 	for (int i = 0; list[i] != nullptr; ++i)
 	{
-		delete [] list[i];;
+		delete [] list[i];
 	}
 }
 
